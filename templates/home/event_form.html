@@ -1,28 +1,33 @@
-{% extends 'home/index.html' %}
-{% block main_content %}
+<form method="post" action="">
+        {% csrf_token %}
+      
+       <div class="modal-header">
+           {%if object%}
+          <h5 class="modal-title">Update Event</h5>
+          {%else%}
+          <h5 class="modal-title">Create Event</h5>
 
-
-<div class="card">
-    <div class="card-header bg-primary">
-        <div class="row">
-                {% if object %}
-                <h3 class="h6 text-uppercase text-white mb-0">Event Update/h3>
-                    {%else%}
-                    <h3 class="h6 text-uppercase text-white mb-0">Event Create</h3>
-                {%endif%}
-                <a href="{% url 'events:home' %}" class="ml-auto mr-2 text-white"><i class="fas fa-times"></i></a>
+          {%endif%}
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        
-    </div>
-    <div class="card-body">
-        <form action="{% if object %}{% url 'events:event_update' object.id %}{% else %}{% url 'events:event_create' %}{% endif %}"
-            method="post" enctype="multipart/form-data" novalidate>
-            {% csrf_token %}
-            {{form.as_p}}
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Save</button>
+      
+        <div class="modal-body">
+          {% for field in form %}
+            <div class="form-group{% if field.errors %} invalid{% endif %}">
+              <label for="{{ field.id_for_label }}"></label>
+              {{ field }}
+              {% for error in field.errors %}
+                <p class="help-block">{{ error }}</p>
+              {% endfor %}
             </div>
-        </form>
-    </div>
-</div>
-{% endblock main_content %}
+          {% endfor %}
+        </div>
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+      
+      </form>

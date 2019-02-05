@@ -10,19 +10,20 @@
         crossorigin="anonymous"> <!-- Google fonts - Popppins for copy-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
-    <div class=" container-fluid root h-100">
+    <div id="root" class=" container-fluid  h-100">
         <div class="row">
             <nav class="navbar navbar-dark bg-dark w-100">
-                <a class="navbar-brand" href="{% url 'events:home' %}">Events CMS</a>
+                <a class="navbar-brand" href="{% url 'events:home' %}">[[brand]]</a>
             </nav>
         </div>
 
         <div class="row main-row">
-            <div class="col-md-2 bg-primary" >
+            <div class="col-md-2 bg-primary">
                 <div class="row mt-3 ml-1">
                     <p style="color:white">Events +</p>
                 </div>
@@ -32,33 +33,42 @@
                 {% block main_content %}
                 <div class="row mb-3">
                     <div class="col-md-3">
-                        <a class="btn btn-primary shadow" href="{% url 'events:event_create' %}">Create</a>
-                        
+                        <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Create book button -->
+                        <button class="create-book btn btn-primary" type="button" name="button">Create</button>
                     </div>
                 </div>
                 <div class="row">
                     {%for event in object_list%}
-                    <div class="col-md-3 mb-3">
+
+                    <div class="col-md-3 mb-3 animated bounceIn">
                         <div class="card custom-shadow">
                             <div class="card-header">
-                                    <p style="font-weight:bold">
-                                        {{event.event_name}}
-                                    </p>
-                        
+                                <p style="font-weight:bold">
+                                    {{event.event_name}}
+                                </p>
                             </div>
                             <div class="card-body">
-                                    <h5 class="card-title">{{event.date_time}}</h5>                                
-                                    <p class="card-text">{{event.venue}}</p>
-                              
+                                <h5 class="card-title">{{event.date_time}}</h5>
+                                <p class="card-text">{{event.venue}}</p>
+
                                 <div class="row justify-content-end">
-                                    <a href="{% url 'events:event_update' event.id %}" class="btn text-right text-primary">More +</a>
+                                    <a data-id="{% url 'events:event_update' event.id %}" class="update-book btn text-right text-primary">More
+                                        +</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {%endfor%}
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-md-10">
@@ -90,8 +100,36 @@
         </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script>
+
+
+        new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#root',
+            data: {
+                brand: 'Event CMS'
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".create-book").modalForm({
+                formURL: "{% url 'events:event_create' %}"
+            });
+            $(".update-book").each(function () {
+                $(this).modalForm({formURL: $(this).data('id')});
+              });
+            
+
+        });
+    </script>
 </body>
 
 </html>

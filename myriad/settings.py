@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
+    'bootstrap_modal_forms',
     ]
 
 MIDDLEWARE = [
