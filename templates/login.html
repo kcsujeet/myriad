@@ -1,0 +1,10 @@
+<form  method="POST" action="{% url 'events:login' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type='submit' title="login">Login</button>
+</form>
+
+<div class="custom-control custom-checkbox">
+        <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+        <label for="customCheck1" class="custom-control-label">Remember Me</label>
+    </div>

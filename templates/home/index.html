@@ -1,0 +1,97 @@
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Events</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+        crossorigin="anonymous"> <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class=" container-fluid root h-100">
+        <div class="row">
+            <nav class="navbar navbar-dark bg-dark w-100">
+                <a class="navbar-brand" href="{% url 'events:home' %}">Events CMS</a>
+            </nav>
+        </div>
+
+        <div class="row main-row">
+            <div class="col-md-2 bg-primary" >
+                <div class="row mt-3 ml-1">
+                    <p style="color:white">Events +</p>
+                </div>
+            </div>
+            <div class="col-md-10 mt-2 justify-content-center">
+
+                {% block main_content %}
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <a class="btn btn-primary shadow" href="{% url 'events:event_create' %}">Create</a>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    {%for event in object_list%}
+                    <div class="col-md-3 mb-3">
+                        <div class="card custom-shadow">
+                            <div class="card-header">
+                                    <p style="font-weight:bold">
+                                        {{event.event_name}}
+                                    </p>
+                        
+                            </div>
+                            <div class="card-body">
+                                    <h5 class="card-title">{{event.date_time}}</h5>                                
+                                    <p class="card-text">{{event.venue}}</p>
+                              
+                                <div class="row justify-content-end">
+                                    <a href="{% url 'events:event_update' event.id %}" class="btn text-right text-primary">More +</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {%endfor%}
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        {% if is_paginated %}
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                            {% else %}
+                            <li class="disabled page-item"><a class="page-link">Previous</a></li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <li class="active page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                            {% else %}
+                            <li class="disabled page-item"><a class="page-link">Next</a></li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endblock main_content %}
+            </div>
+        </div>
+
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
