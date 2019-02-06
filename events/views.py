@@ -6,6 +6,7 @@ from braces.views import SuperuserRequiredMixin, LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.contrib.messages.views import SuccessMessageMixin
 from bootstrap_modal_forms.mixins import PassRequestMixin
+from django.shortcuts import redirect
 
 
 from events.forms import *
@@ -14,6 +15,7 @@ from events.models import *
 
 class AuthMixin(LoginRequiredMixin):
     login_url = reverse_lazy('events:login')
+
 
 class Login(TemplateView):
     template_name = "login.html"
@@ -39,10 +41,6 @@ class Login(TemplateView):
 
 class Logout(AuthMixin, View):
     def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
-        storeAuditTrail(None, self.request.user, AUDIT_CHOICES['LOGOUT'], self.request)
         logout(self.request)
         return redirect('events:login')
 
