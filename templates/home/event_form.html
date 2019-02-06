@@ -1,14 +1,14 @@
-<form method="post" action="">
+<form method="post" action="" >
         {% csrf_token %}
       
-       <div class="modal-header">
+       <div class="modal-header bg-primary text-white">
            {%if object%}
           <h5 class="modal-title">Update Event</h5>
           {%else%}
           <h5 class="modal-title">Create Event</h5>
 
           {%endif%}
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button style="color:white" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -27,7 +27,7 @@
       
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-success">Save</button>
         </div>
       
       </form>
