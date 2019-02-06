@@ -9,6 +9,7 @@ password: admin123
 >>>>>>> logout using Logout button
 
 Framework USED: Django 2.0
+
 Python Version: 3.6
 
 Css Framework used:
