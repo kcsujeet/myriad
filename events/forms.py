@@ -31,6 +31,7 @@ class EventForm(ModelForm):
        self.fields['description'].widget.attrs['placeholder'] = 'Description'
        self.fields['date_time'].widget.attrs['placeholder'] = 'Date Time'
        self.fields['venue'].widget.attrs['placeholder'] = 'Venue'
+       self.fields['venue'].widget.attrs['id'] = 'autocomplete'
        self.fields['venue_url'].widget.attrs['placeholder'] = 'Venue URL'
        self.fields['signup_form_code'].widget.attrs['placeholder'] = 'Eloqua Signup Form Code'
        for field in iter(self.fields):
