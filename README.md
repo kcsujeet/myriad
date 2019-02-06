@@ -6,7 +6,7 @@ password: admin123
 >>>>> Add new event using create button
 >>>>>> update event usign more+ button
 (didn't include delete option as it was not asked)
->>>> logout using Logout button
+>>>>>>> logout using Logout button
 
 ADDITIONAL LIBRARIES USED:
 1. django bootstrap modal form
