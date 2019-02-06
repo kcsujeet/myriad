@@ -1,11 +1,12 @@
 # myriad
 STEPS:
-a. Log in to the website:
+>>>> Log in to the website:
 username: kcsujeet
 password: admin123
-b. Add new event using create button
-3. update event usign more+ button
+>>>>> Add new event using create button
+>>>>>> update event usign more+ button
 (didn't include delete option as it was not asked)
+>>>> logout using Logout button
 
 ADDITIONAL LIBRARIES USED:
 1. django bootstrap modal form
